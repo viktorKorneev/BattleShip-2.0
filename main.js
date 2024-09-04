@@ -26,6 +26,11 @@ let model = {
   fire: function (guess) {
     for (let i = 0; i < this.numShips; i++) {
       let ship = this.ships[i];
+      locations = ship.locations;
+      let index = locations.indexOf(guess);
+      if (index >= 0) {
+        
+      }
     }
   },
 };
