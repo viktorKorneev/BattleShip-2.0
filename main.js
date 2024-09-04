@@ -23,6 +23,11 @@ let model = {
     { locations: ["24", "34", "44"], hits: ["", "", ""] },
     { locations: ["10", "11", "12"], hits: ["", "", ""] },
   ],
+  fire: function (guess) {
+    for (let i = 0; i < this.numShips; i++) {
+      let ship = this.ships[i];
+    }
+  },
 };
 
 // view.displayMiss("00")
