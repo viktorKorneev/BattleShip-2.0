@@ -35,6 +35,14 @@ let model = {
     }
     return false;
   },
+  isSunk: function (ship) {
+    for (let i = 0; i < this.shipLength; i++) {
+      if (ship.hits[i] !== "hit") {
+        return false;
+      }
+    }
+    return true;
+  },
 };
 
 // view.displayMiss("00")
