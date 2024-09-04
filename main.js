@@ -17,7 +17,7 @@ let model = {
   boardSize: 7,
   numShips: 3,
   shipLength: 3,
-  shepsSunk: 0,
+  shipsSunk: 0,
   ships: [
     { locations: ["06", "16", "26"], hits: ["", "", ""] },
     { locations: ["24", "34", "44"], hits: ["", "", ""] },
@@ -30,9 +30,17 @@ let model = {
       let index = locations.indexOf(guess);
       if (index >= 0) {
         ship.hits[index] = "hit";
+        view.displayHit(guess);
+        view.displayMassage("HIT!");
+        if (this.isSunk(ship)) {
+          view.displayMassage("You sank my battleship!");
+          this.shipsSunk++;
+        }
         return true;
       }
     }
+    view.displayMiss(guess);
+    view.displayMassage("You missed.")
     return false;
   },
   isSunk: function (ship) {
