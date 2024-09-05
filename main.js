@@ -81,23 +81,25 @@ function parseGuess(guess) {
 
 let controller = {
   guesses: 0,
-  processGuess: function(guess){
+  processGuess: function (guess) {
     let location = parseGuess(guess);
     if (location) {
       this.guesses++;
       let hit = model.fire(location);
+      if (hit && model.shipsSunk === model.numShips) {
+        view.displayMassage(
+          "You sank all my battleships, in " + this.guesses + " guesses"
+        );
+      }
     }
-  }
-}
-
+  },
+};
 
 // console.log(parseGuess("A0"));
 // console.log(parseGuess("B6"));
 // console.log(parseGuess("G3"));
 // console.log(parseGuess("H0"));
 // console.log(parseGuess("A7"));
-
-
 
 // model.fire("53");
 
