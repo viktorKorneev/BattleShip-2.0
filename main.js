@@ -95,19 +95,30 @@ let controller = {
   },
 };
 
-controller.processGuess("A0");
+function init() {
+  let firebutton = document.getElementById("fireButton");
+  firebutton.onclick = handleFireButton;
+}
 
-controller.processGuess("A6");
-controller.processGuess("B6");
-controller.processGuess("C6");
+function handleFireButton () {
 
-controller.processGuess("C4");
-controller.processGuess("D4");
-controller.processGuess("E4");
+}
 
-controller.processGuess("B0");
-controller.processGuess("B1");
-controller.processGuess("B2");
+window.onload = init;
+
+// controller.processGuess("A0");
+
+// controller.processGuess("A6");
+// controller.processGuess("B6");
+// controller.processGuess("C6");
+
+// controller.processGuess("C4");
+// controller.processGuess("D4");
+// controller.processGuess("E4");
+
+// controller.processGuess("B0");
+// controller.processGuess("B1");
+// controller.processGuess("B2");
 
 // console.log(parseGuess("A0"));
 // console.log(parseGuess("B6"));
