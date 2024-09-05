@@ -51,6 +51,15 @@ let model = {
     }
     return true;
   },
+  generateShipLocations: function() {
+    let locations;
+    for(let i = 0; i < this.numShips; i++) {
+      do {
+        locations = this.generateShip();
+      } while (this.collision(locations));
+      this.ships[i].locations = locations;
+    }
+  },
 };
 
 function parseGuess(guess) {
