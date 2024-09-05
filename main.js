@@ -60,6 +60,28 @@ let model = {
       this.ships[i].locations = locations;
     }
   },
+  generataShip: function() {
+    let direction = Math.floor(Math.random() * 2);
+    let row, col;
+
+    if (direction === 1) {
+      row = Math.floor(Math.random() * this.boardSize);
+      col = Math.floor(Math.random() * (this.boardSize - this. shipLength));
+    } else {
+      row = Math.floor(Math.random() * (this.boardSize - this. shipLength));
+      col = Math.floor(Math.random() * this.boardSize);
+    }
+    
+    let newShipLocations = [];
+    for(let i = 0; i < this.shipLength; i++){
+      if (direction === 1) {
+
+      } else {
+
+      }
+    }
+    return newShipLocations;
+  }
 };
 
 function parseGuess(guess) {
