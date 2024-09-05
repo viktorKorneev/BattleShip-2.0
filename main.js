@@ -1,27 +1,12 @@
-let view = {
-  displayMassage: function (msg) {
-    let messageArea = document.getElementById("messageArea");
-    messageArea.innerHTML = msg;
-  },
-  displayHit: function (location) {
-    let cell = document.getElementById(location);
-    cell.setAttribute("class", "hit");
-  },
-  displayMiss: function (location) {
-    let cell = document.getElementById(location);
-    cell.setAttribute("class", "miss");
-  },
-};
-
 let model = {
   boardSize: 7,
   numShips: 3,
   shipLength: 3,
   shipsSunk: 0,
   ships: [
-    { locations: ["06", "16", "26"], hits: ["", "", ""] },
-    { locations: ["24", "34", "44"], hits: ["", "", ""] },
-    { locations: ["10", "11", "12"], hits: ["", "", ""] },
+    { locations: [0, 0, 0], hits: ["", "", ""] },
+    { locations: [0, 0, 0], hits: ["", "", ""] },
+    { locations: [0, 0, 0], hits: ["", "", ""] },
   ],
   fire: function (guess) {
     for (let i = 0; i < this.numShips; i++) {
@@ -60,7 +45,7 @@ let model = {
       this.ships[i].locations = locations;
     }
   },
-  generataShip: function () {
+  generateShip: function () {
     let direction = Math.floor(Math.random() * 2);
     let row, col;
 
@@ -95,6 +80,37 @@ let model = {
   },
 };
 
+let view = {
+  displayMassage: function (msg) {
+    let messageArea = document.getElementById("messageArea");
+    messageArea.innerHTML = msg;
+  },
+  displayHit: function (location) {
+    let cell = document.getElementById(location);
+    cell.setAttribute("class", "hit");
+  },
+  displayMiss: function (location) {
+    let cell = document.getElementById(location);
+    cell.setAttribute("class", "miss");
+  },
+};
+
+let controller = {
+  guesses: 0,
+  processGuess: function (guess) {
+    let location = parseGuess(guess);
+    if (location) {
+      this.guesses++;
+      let hit = model.fire(location);
+      if (hit && model.shipsSunk === model.numShips) {
+        view.displayMassage(
+          "You sank all my battleships, in " + this.guesses + " guesses"
+        );
+      }
+    }
+  },
+};
+
 function parseGuess(guess) {
   let alphabet = ["A", "B", "C", "D", "E", "F", "G"];
 
@@ -121,27 +137,11 @@ function parseGuess(guess) {
   return null;
 }
 
-let controller = {
-  guesses: 0,
-  processGuess: function (guess) {
-    let location = parseGuess(guess);
-    if (location) {
-      this.guesses++;
-      let hit = model.fire(location);
-      if (hit && model.shipsSunk === model.numShips) {
-        view.displayMassage(
-          "You sank all my battleships, in " + this.guesses + " guesses"
-        );
-      }
-    }
-  },
-};
-
-function init() {
-  let firebutton = document.getElementById("fireButton");
-  firebutton.onclick = handleFireButton;
+function handleFireButton() {
   let guessInput = document.getElementById("guessInput");
-  guessInput.onkeypress = handleKeyPress;
+  let guess = guessInput.value;
+  controller.processGuess(guess);
+  guessInput.value = "";
 }
 
 function handleKeyPress(e) {
@@ -152,14 +152,15 @@ function handleKeyPress(e) {
   }
 }
 
-function handleFireButton() {
-  let guessInput = document.getElementById("guessInput");
-  let guess = guessInput.value;
-  controller.processGuess(guess);
-  guessInput.value = "";
-}
-
 window.onload = init;
+
+function init() {
+  let firebutton = document.getElementById("fireButton");
+  firebutton.onclick = handleFireButton;
+  let guessInput = document.getElementById("guessInput");
+  guessInput.onkeypress = handleKeyPress;
+  model.generateShipLocations();
+}
 
 // controller.processGuess("A0");
 
